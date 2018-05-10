@@ -9,6 +9,6 @@ for word in file:
     L[len(word)-1] = L[len(word)-1] + 1
     
 i = 1
-while i>=22:
-    print(i,'-letter words:',L[i])
+while i<=21:
+    print(i,'- letter words:',L[i])
     i+=1
