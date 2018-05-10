@@ -2,9 +2,8 @@
 #5/10/18
 #reverseFile.py
 
-file = input('Enter file name: ')
+file = open(input('Enter file name: '))
 
-open('file')
 
 new = []
 for line in file:
