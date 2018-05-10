@@ -8,7 +8,7 @@ file = open(input('Enter file name: '))
 new = []
 for line in file:
     if len(line)>0:
-        new.append(line)
+        new.append(line.strip(\n))
 print(new)
     
     
