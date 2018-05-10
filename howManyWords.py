@@ -4,7 +4,7 @@
 
 file = open('engmix.txt')
 
-L = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+L = [0]*22
 for word in file:
     L[len(word)-1] = L[len(word)-1] + 1
     
