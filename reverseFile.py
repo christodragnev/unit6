@@ -7,9 +7,12 @@ file = open(input('Enter file name: '))
 
 new = []
 for line in file:
+    line = line.strip()
     if len(line)>0:
-        new.append(line.strip(\n))
-print(new)
-    
+        new.append(line)
+new.reverse()
+
+for word in new:
+    print(word)
     
     
