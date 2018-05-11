@@ -7,6 +7,6 @@ file = open('engmix.txt')
 for line in file:
     line = line.strip()
     if len(line) > 0:
-        if 'c' in line[0] and 'o' in line[-1]:
+        if 'c' in line[0] and 'd' in line[-1]:
             print(line)
         
