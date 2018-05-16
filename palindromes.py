@@ -4,7 +4,9 @@
 
 file = open('engmix.txt')
 
+L = []
 for line in file:
-    if len(item)/2==0.5:
-        
-    item[:len(item)//2]==len
+    line = line.strip()
+    L.append(line)
+    if L.reverse(line) == L
+        print(line)
