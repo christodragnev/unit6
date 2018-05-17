@@ -4,9 +4,10 @@
 
 file = open('engmix.txt')
 
-L = []
 for line in file:
     line = line.strip()
-    L.append(line)
-    if L.reverse(line) == L
+    back = ''
+    for ch in line:
+        back = ch+back
+    if back == line:
         print(line)
