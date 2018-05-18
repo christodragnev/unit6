@@ -10,3 +10,6 @@ for line in file:
     if line.count('c')==3 and line.count('p')==2:
         print(line)
         
+#program3
+num = int(input('Enter a number: ')
+
