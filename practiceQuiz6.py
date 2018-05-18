@@ -11,5 +11,12 @@ for line in file:
         print(line)
         
 #program3
-num = int(input('Enter a number: ')
+num = int(input('Enter a number: '))
 
+for line in file:
+    line = line.strip()
+    i = 0
+    while i<1:
+        if line[0] == 'r':
+            print(line)
+            i+=1
