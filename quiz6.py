@@ -4,7 +4,7 @@
 
 file = open('engmix.txt')
 
-#1
+#Program1
 '''
 letter = input('Enter a letter: ')
 for line in file:
@@ -13,7 +13,7 @@ for line in file:
         print(line)
 '''
 
-#2
+#Program2
 '''
 new = []
 for line in file:
@@ -27,7 +27,7 @@ for word in new:
         break
 '''
         
-#3
+#Program3
 '''
 num = int(input('Enter a number: '))
 letter = input('Enter a letter: ')
@@ -40,7 +40,7 @@ for line in file:
             print(line)
 '''
 
-#4
+#Program4
 '''
 new = []
 for line in file:
