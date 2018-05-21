@@ -18,7 +18,7 @@ for line in file:
 new = []
 for line in file:
     line = line.strip()
-    if len(line)>9:
+    if len(line)>=9:
         new.append(line)
 
 for word in new:
