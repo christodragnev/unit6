@@ -5,23 +5,26 @@
 file = open('engmix.txt')
 
 #1
-"""
+'''
 letter = input('Enter a letter: ')
 for line in file:
     line = line.strip()
     if line.count(letter)==4:
         print(line)
-"""
+'''
 
 #2
 '''
 new = []
 for line in file:
     line = line.strip()
-    if len(line) > 0:
+    if len(line)>9:
         new.append(line)
-        if line[0] == line[4] and line[8] == line[4]:
-            print(line)
+
+for word in new:
+    if word[0] == word[4] and word[4] == word[8]:
+        print(word)
+        break
 '''
         
 #3
@@ -38,10 +41,14 @@ for line in file:
 '''
 
 #4
+'''
 new = []
 for line in file:
     line = line.strip()
-    if len(line) >= 10:
+    if len(line)>=10:
         new.append(line)
-    print(new[7999])
+print(new[7999])
+'''
+
+    
     
