@@ -17,6 +17,8 @@ def redrawAll():
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*25+10),10+(2*25+10)*c))
+    for item in App().spritelist[:]:
+        item.destroy()
 
 if __name__ == '__main__':
     redrawAll()
