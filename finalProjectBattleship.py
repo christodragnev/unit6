@@ -15,4 +15,7 @@ def buildboard():
     blueCircle = CircleAsset(30,blackOutline,blue) #radius, outline, full
     Sprite(blueCircle,(25,25))
     App().run()
+
+board = [['a','b','c','d','e'],['f','g','h','i','j'],['k','l','m','n','o'],['p','q','r','s','t'],['u','v','w','x','y']]
+
 print(buildboard())
