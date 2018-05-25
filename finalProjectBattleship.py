@@ -33,7 +33,7 @@ def pickComputerShips():
 
 def mouseClick(event):
     blackCircle = CircleAsset(radius,blackOutline,black)
-    if (event.x < 60 and event.y < 60) and (event.x>10 and event.y >10):
+    if (event.x < 70 and event.y < 70) and (event.x>10 and event.y >10):
             Sprite(blackCircle,(10,10))
 
     
