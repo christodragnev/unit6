@@ -13,12 +13,14 @@ blackOutline = LineStyle(1,black)
 radius = 30
 
 def buildboard():
-    board = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
+    return [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
+
 
 def redrawAll():
     for item in App().spritelist[:]:
         item.destroy()
     circle = CircleAsset(radius,blackOutline,white)
+    blackCircle = CircleAsset(radius,blackOutline,black)
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*radius),10+(2*radius)*c))
@@ -32,14 +34,17 @@ def pickComputerShips():
     return
 
 def mouseClick(event):
-    blackCircle = CircleAsset(radius,blackOutline,black)
-    if (event.x < 70 and event.y < 70) and (event.x>10 and event.y >10):
-            Sprite(blackCircle,(10,10))
-
+    print(int(event.x//60),int(event.y//60))
+   
     
 
 
 if __name__ == '__main__':
+    
+    data = {}
+    data['board'] = buildboard()
+    
+    data['compboard'] = buildboard()
     
     App().listenMouseEvent('click',mouseClick)
     redrawAll()
