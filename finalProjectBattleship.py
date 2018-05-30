@@ -24,18 +24,28 @@ def redrawAll():
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*radius),10+(2*radius)*c))
+            if data['board'][r][c]=='ship':
+                Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
             
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(500+r*(2*radius),10+(2*radius)*c))
+            
             
 
 def pickComputerShips():
     return
 
 def mouseClick(event):
-    print(int(event.x//60),int(event.y//60))
-   
+    row = int(event.x//60)
+    col = int(event.y//60)
+    i=0
+    while i<4:
+        data['board'][row][col]='ship'
+        i+=1
+    redrawAll()
+
+            
     
 
 
