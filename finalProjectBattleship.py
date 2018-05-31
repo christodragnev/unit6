@@ -24,25 +24,33 @@ def redrawAll():
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*radius),10+(2*radius)*c))
-            if data['board'][r][c]=='ship':
-                Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
+            i = 0
+            while i<=3:
+                if data['board'][r][c]=='ship':
+                    Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
+                i+=1
             
     for r in range(0,5):
         for c in range(0,5):
-            Sprite(circle,(500+r*(2*radius),10+(2*radius)*c))
+                Sprite(circle,(500+r*(2*radius),10+(2*radius)*c))
+                if data['compboard'][r][c]=='compship':
+                    Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
             
             
 
 def pickComputerShips():
-    return
+    i = 0
+    while i <= 3:
+        row = randint(0,5)
+        col = randint(0,5)
+        data['compboard'][row][col]='compship'
+        i+=1
+    redrawAll()
 
 def mouseClick(event):
     row = int(event.x//60)
     col = int(event.y//60)
-    i=0
-    while i<4:
-        data['board'][row][col]='ship'
-        i+=1
+    data['board'][row][col]='ship'
     redrawAll()
 
             
@@ -57,5 +65,6 @@ if __name__ == '__main__':
     data['compboard'] = buildboard()
     
     App().listenMouseEvent('click',mouseClick)
+    pickComputerShips()
     redrawAll()
     App().run()
