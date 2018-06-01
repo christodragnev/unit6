@@ -10,6 +10,10 @@ white = Color(0xFFFFFF,1)
 black = Color(0x000000,1)
 blackOutline = LineStyle(1,black)
 
+EMPTY = 0
+MISS = 1
+HIT = 2
+
 radius = 30
 
 def buildboard():
@@ -24,33 +28,36 @@ def redrawAll():
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*radius),10+(2*radius)*c))
-            i = 0
-            while i<=3:
-                if data['board'][r][c]=='ship':
-                    Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
-                i+=1
+            if data['board'][r][c]=='ship' and data['playerships']<=3:
+                Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
             
     for r in range(0,5):
         for c in range(0,5):
                 Sprite(circle,(500+r*(2*radius),10+(2*radius)*c))
                 if data['compboard'][r][c]=='compship':
-                    Sprite(blackCircle,(10+r*(2*radius),10+(2*radius)*c))
+                    Sprite(blackCircle,(500+r*(2*radius),10+(2*radius)*c))
             
             
 
 def pickComputerShips():
     i = 0
-    while i <= 3:
-        row = randint(0,5)
-        col = randint(0,5)
+    while i <= 2:
+        row = randint(0,4)
+        col = randint(0,4)
         data['compboard'][row][col]='compship'
         i+=1
     redrawAll()
+    
+def computerTurn():
+    row = randint(0,4)
+    col = randint(0,4)
+    
 
 def mouseClick(event):
     row = int(event.x//60)
     col = int(event.y//60)
     data['board'][row][col]='ship'
+    data['playerships']+=1
     redrawAll()
 
             
@@ -63,6 +70,7 @@ if __name__ == '__main__':
     data['board'] = buildboard()
     
     data['compboard'] = buildboard()
+    data['playerships'] = 0
     
     App().listenMouseEvent('click',mouseClick)
     pickComputerShips()
