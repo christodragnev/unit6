@@ -8,6 +8,7 @@ from random import randint
 
 white = Color(0xFFFFFF,1)
 black = Color(0x000000,1)
+red = Color(0xFF0000,1)
 blackOutline = LineStyle(1,black)
 
 EMPTY = 0
@@ -25,6 +26,7 @@ def redrawAll():
         item.destroy()
     circle = CircleAsset(radius,blackOutline,white)
     blackCircle = CircleAsset(radius,blackOutline,black)
+    redCircle = CircleAsset(radius,blackOutline,red)
     for r in range(0,5):
         for c in range(0,5):
             Sprite(circle,(10+r*(2*radius),10+(2*radius)*c))
@@ -36,6 +38,8 @@ def redrawAll():
                 Sprite(circle,(500+r*(2*radius),10+(2*radius)*c))
                 if data['compboard'][r][c]=='compship':
                     Sprite(blackCircle,(500+r*(2*radius),10+(2*radius)*c))
+                if data['compboard'][r][c]=='guess':
+                    Sprite(redCircle,(500+r*(2*radius),10+(2*radius)*c))
             
             
 
@@ -51,9 +55,9 @@ def pickComputerShips():
 def computerTurn():
     row = randint(0,4)
     col = randint(0,4)
-    if data['playerturn']==False:
-        if data['board'][row][col]=0:
-        
+    if data['turn']==False:
+        if data['board'][row][col]==0:
+            data['board'][row][col]='ship'
     
 
 def mouseClick(event):
@@ -61,7 +65,9 @@ def mouseClick(event):
     col = int(event.y//60)
     data['board'][row][col]='ship'
     data['playerships']+=1
-    if data['playerturn']==True:
+    if data['turn']==True and data['playerships']==4:
+        data['compboard'][row][col]='guess'
+        
         
         
     redrawAll()
@@ -77,7 +83,7 @@ if __name__ == '__main__':
     data['compboard'] = buildboard()
     data['playerships'] = 0
     
-    data['playerturn']=True
+    data['turn']=True
     
     App().listenMouseEvent('click',mouseClick)
     pickComputerShips()
