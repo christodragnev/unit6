@@ -51,6 +51,9 @@ def pickComputerShips():
 def computerTurn():
     row = randint(0,4)
     col = randint(0,4)
+    if data['playerturn']==False:
+        if data['board'][row][col]=0:
+        
     
 
 def mouseClick(event):
@@ -58,6 +61,9 @@ def mouseClick(event):
     col = int(event.y//60)
     data['board'][row][col]='ship'
     data['playerships']+=1
+    if data['playerturn']==True:
+        
+        
     redrawAll()
 
             
@@ -68,9 +74,10 @@ if __name__ == '__main__':
     
     data = {}
     data['board'] = buildboard()
-    
     data['compboard'] = buildboard()
     data['playerships'] = 0
+    
+    data['playerturn']=True
     
     App().listenMouseEvent('click',mouseClick)
     pickComputerShips()
