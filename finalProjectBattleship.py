@@ -69,7 +69,7 @@ def redrawAll():
     
     if data['computerHits'] == 3:
         data['end'] = True
-        Sprite(playerWinText,(300,200))
+        Sprite(playerWinText,(320,200))
     elif data['playerHits'] == 3:
         data['end'] = True
         Sprite(computerWinText,(300,200))
