@@ -46,11 +46,11 @@ def redrawAll():
                 if data['compboard'][r][c] == 0:
                     Sprite(emptyCircle,(500+r*(2*radius),10+(2*radius)*c))
                 elif data['compboard'][r][c]=='compship':
-                    Sprite(shipCircle,(500+r*(2*radius),10+(2*radius)*c))
+                    Sprite(emptyCircle,(500+r*(2*radius),10+(2*radius)*c))
                 elif data['compboard'][r][c] == MISS:
                     Sprite(missCircle,(500+r*(2*radius),10+(2*radius)*c))
                 elif data['compboard'][r][c] == HIT:
-                    Sprite(missCircle,(500+r*(2*radius),10+(2*radius)*c))
+                    Sprite(hitCircle,(500+r*(2*radius),10+(2*radius)*c))
                 
             
 
@@ -67,7 +67,7 @@ def computerTurn():
     row = randint(0,4)
     col = randint(0,4)
     if data['board'][row][col] == 'ship':
-        data['playerBoard'][row][col] = HIT
+        data['board'][row][col] = HIT
         data['playerHits'] += 1
         if data['playerHits'] == 3:
             data['endGame'] = True
@@ -87,19 +87,19 @@ def mouseClick(event):
             data['board'][row][col]='ship'
             data['playerships']+=1
         elif data['playerships']==3:
-            if data['compboard'][(event.x-500)//60][col] == 'ship':
-                    data['compboard'][(event.x-500)//60][col] = HIT
-                    data['computerHits'] += 1
-                    if data['computerHits'] == 3:
-                        data['end'] = True
-                        print('Player wins!')
-                    else:
-                        computerTurn()
-                    redrawAll()
-        elif data['compboard'][(event.x-500)//60][col] == 0:
-                    data['compboard'][(event.x-500)//60][col] = MISS
+            if data['compboard'][((event.x)-500)//60][col] == 'compship':
+                data['compboard'][((event.x)-500)//60][col] = HIT
+                data['computerHits'] += 1
+                if data['computerHits'] == 3:
+                    data['end'] = True
+                    print('Player wins!')
+                else:
                     computerTurn()
-                    redrawAll()
+                redrawAll()
+            elif data['compboard'][(event.x-500)//60][col] == 0:
+                data['compboard'][(event.x-500)//60][col] = MISS
+                computerTurn()
+                redrawAll()
             
     redrawAll()
     
