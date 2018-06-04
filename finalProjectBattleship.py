@@ -12,6 +12,8 @@ red = Color(0xFF0000,1)
 blue = Color(0x009AFF, 1)
 blackOutline = LineStyle(1,black)
 
+
+
 EMPTY = 0
 MISS = 1
 HIT = 2
@@ -29,6 +31,19 @@ def redrawAll():
     shipCircle = CircleAsset(radius,blackOutline,black)
     hitCircle = CircleAsset(radius,blackOutline,red)
     missCircle = CircleAsset(radius,blackOutline,blue)
+    playerBoardText = TextAsset('PlayerBoard',fill=black, style='bold 15pt Times')
+    computerBoardText = TextAsset('ComputerBoard',fill=black, style='bold 15pt Times')
+    blackCircleText = TextAsset('BlackCircle=PlayerShip',fill=black, style='bold 15pt Times')
+    blueCircleText = TextAsset('BlueCircle=Miss',fill=black, style='bold 15pt Times')
+    redCircleText = TextAsset('RedCircle=Hit',fill=black, style='bold 15pt Times')
+    computerWinText = TextAsset('Computer Wins!!',fill=black, style='bold 50pt Times')
+    playerWinText = TextAsset('Player Wins!!',fill=black, style='bold 50pt Times')
+
+    Sprite(playerBoardText,(120,320))
+    Sprite(computerBoardText,(620,320))
+    Sprite(blackCircleText,(10,420))
+    Sprite(blueCircleText,(10,450))
+    Sprite(redCircleText,(10,480))
     
     for r in range(0,5):
         for c in range(0,5):
@@ -51,7 +66,13 @@ def redrawAll():
                     Sprite(missCircle,(500+r*(2*radius),10+(2*radius)*c))
                 elif data['compboard'][r][c] == HIT:
                     Sprite(hitCircle,(500+r*(2*radius),10+(2*radius)*c))
-                
+    
+    if data['computerHits'] == 3:
+        data['end'] = True
+        Sprite(playerWinText,(300,200))
+    elif data['playerHits'] == 3:
+        data['end'] = True
+        Sprite(computerWinText,(300,200))
             
 
 def pickComputerShips():
@@ -59,19 +80,20 @@ def pickComputerShips():
     while i <= 2:
         row = randint(0,4)
         col = randint(0,4)
-        data['compboard'][row][col]='compship'
-        i+=1
+        if data['compboard'][row][col] == 0:
+            data['compboard'][row][col]='compship'
+            i+=1
     redrawAll()
     
 def computerTurn():
     row = randint(0,4)
     col = randint(0,4)
+    
     if data['board'][row][col] == 'ship':
         data['board'][row][col] = HIT
         data['playerHits'] += 1
         if data['playerHits'] == 3:
-            data['endGame'] = True
-            print('Computer wins!')
+            data['end'] = True
         redrawAll()
     elif data['board'][row][col] == 0:
         data['board'][row][col] = MISS
@@ -92,7 +114,6 @@ def mouseClick(event):
                 data['computerHits'] += 1
                 if data['computerHits'] == 3:
                     data['end'] = True
-                    print('Player wins!')
                 else:
                     computerTurn()
                 redrawAll()
