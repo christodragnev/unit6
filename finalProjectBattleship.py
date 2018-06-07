@@ -6,6 +6,7 @@
 from ggame import *
 from random import randint
 
+#variables
 white = Color(0xFFFFFF,1)
 black = Color(0x000000,1)
 red = Color(0xFF0000,1)
@@ -13,20 +14,21 @@ blue = Color(0x009AFF, 1)
 blackOutline = LineStyle(1,black)
 
 
-
+#constants
 EMPTY = 0
 MISS = 1
 HIT = 2
 radius = 30
 
-def buildboard():
+def buildboard():  #creates empty board
     return [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
 
 
 def redrawAll(): 
-    for item in App().spritelist[:]:
+    for item in App().spritelist[:]: #deletes are graphics on screen
         item.destroy()
         
+    #graphics variables   
     emptyCircle = CircleAsset(radius,blackOutline,white)
     shipCircle = CircleAsset(radius,blackOutline,black)
     hitCircle = CircleAsset(radius,blackOutline,red)
@@ -48,18 +50,18 @@ def redrawAll():
     Sprite(redCircleText,(70,480))
     Sprite(hitCircle, (10,460))
     
-    for r in range(0,5):
+    for r in range(0,5): #for user board, places circle where user clicked, and checks if space is empty or not
         for c in range(0,5):
             if data['board'][r][c] == 0:
-                Sprite(emptyCircle,(10+r*(2*radius),10+(2*radius)*c))
+                Sprite(emptyCircle,(10+r*(2*radius),10+(2*radius)*c)) #if circle is empty, place ship
             elif data['board'][r][c] == 'ship':
-                Sprite(shipCircle,(10+r*(2*radius),10+(2*radius)*c))
+                Sprite(shipCircle,(10+r*(2*radius),10+(2*radius)*c))  #if circle is empty, place ship
             elif data['board'][r][c] == MISS:
-                Sprite(missCircle,(10+r*(2*radius),10+(2*radius)*c))
+                Sprite(missCircle,(10+r*(2*radius),10+(2*radius)*c)) #if computer guesses in empty circle, then place missCircle
             elif data['board'][r][c] == HIT:
-                Sprite(hitCircle,(10+r*(2*radius),10+(2*radius)*c))
+                Sprite(hitCircle,(10+r*(2*radius),10+(2*radius)*c)) #if computer guesses in ship circle, then place hitCircle
             
-    for r in range(0,5):
+    for r in range(0,5): #for computer board, places circle where user clicked, and checks if space is empty or not
         for c in range(0,5):
                 if data['compboard'][r][c] == 0:
                     Sprite(emptyCircle,(500+r*(2*radius),10+(2*radius)*c))
@@ -70,15 +72,15 @@ def redrawAll():
                 elif data['compboard'][r][c] == HIT:
                     Sprite(hitCircle,(500+r*(2*radius),10+(2*radius)*c))
     
-    if data['computerHits'] == 3:
+    if data['computerHits'] == 3: #checks to see if all 3 computer ships have been hit, if so, player wins
         data['end'] = True
         Sprite(playerWinText,(320,200))
-    elif data['playerHits'] == 3:
+    elif data['playerHits'] == 3: #checks to see if all 3 player ships have been hit, if so, player wins
         data['end'] = True
         Sprite(computerWinText,(300,200))
             
 
-def pickComputerShips():
+def pickComputerShips(): #randomly picks 3 places to put computer ships
     i = 0
     while i <= 2:
         row = randint(0,4)
@@ -88,14 +90,14 @@ def pickComputerShips():
             i+=1
     redrawAll()
     
-def computerTurn():
+def computerTurn():  #randomly chooses places to guess on the player board
     row = randint(0,4)
     col = randint(0,4)
     
-    if data['board'][row][col] == 'ship':
+    if data['board'][row][col] == 'ship': #if player hits one ship, then a variable keeping track of the number of player hits is added by one
         data['board'][row][col] = HIT
         data['playerHits'] += 1
-        if data['playerHits'] == 3:
+        if data['playerHits'] == 3: #if the variable keeping track of number of player hits = 3, then computer wins
             data['end'] = True
         redrawAll()
     elif data['board'][row][col] == 0:
@@ -107,7 +109,7 @@ def computerTurn():
 def mouseClick(event):  #figures out what row and column the user clicked and places a ship or guess where user clicked
     row = int(event.x//60) 
     col = int(event.y//60)
-    if data['end']==False:
+    if data['end']==False: 
         if  data['playerships']<3: #only 3 ships can be placed
             if data['board'][row][col]==EMPTY: #makes sure you can't place a ship on top of each other
                 data['board'][row][col]='ship'
@@ -130,6 +132,7 @@ def mouseClick(event):  #figures out what row and column the user clicked and pl
     
 if __name__ == '__main__':
     
+    #variables
     data = {}
     data['board'] = buildboard()
     data['compboard'] = buildboard()
@@ -137,9 +140,6 @@ if __name__ == '__main__':
     data['playerHits'] = 0
     data['computerHits'] = 0
     data['end'] = False
-    
-    
-    data['turn']=True
     
     App().listenMouseEvent('click',mouseClick)
     pickComputerShips()
