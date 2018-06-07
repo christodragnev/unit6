@@ -104,24 +104,24 @@ def computerTurn():
     else:
         computerTurn()
 
-def mouseClick(event):
-    row = int(event.x//60)
+def mouseClick(event):  #figures out what row and column the user clicked and places a ship or guess where user clicked
+    row = int(event.x//60) 
     col = int(event.y//60)
     if data['end']==False:
-        if  data['playerships']<3:
-            if data['board'][row][col]==EMPTY:
+        if  data['playerships']<3: #only 3 ships can be placed
+            if data['board'][row][col]==EMPTY: #makes sure you can't place a ship on top of each other
                 data['board'][row][col]='ship'
-                data['playerships']+=1
-        elif data['playerships']==3:
+                data['playerships']+=1 
+        elif data['playerships']==3: #once ships have been palced, guessing starts
             if data['compboard'][((event.x)-500)//60][col] == 'compship':
                 data['compboard'][((event.x)-500)//60][col] = HIT
                 data['computerHits'] += 1
-                if data['computerHits'] == 3:
+                if data['computerHits'] == 3: #if number of ships on computer side equals 3, then player wins
                     data['end'] = True
                 else:
-                    computerTurn()
+                    computerTurn() 
                 redrawAll()
-            elif data['compboard'][(event.x-500)//60][col] == 0:
+            elif data['compboard'][(event.x-500)//60][col] == 0: 
                 data['compboard'][(event.x-500)//60][col] = MISS
                 computerTurn()
                 redrawAll()
