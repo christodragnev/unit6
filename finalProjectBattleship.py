@@ -6,7 +6,7 @@
 from ggame import *
 from random import randint
 
-#variables
+#color variables
 white = Color(0xFFFFFF,1)
 black = Color(0x000000,1)
 red = Color(0xFF0000,1)
