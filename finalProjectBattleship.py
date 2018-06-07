@@ -33,17 +33,20 @@ def redrawAll():
     missCircle = CircleAsset(radius,blackOutline,blue)
     playerBoardText = TextAsset('PlayerBoard',fill=black, style='bold 15pt Times')
     computerBoardText = TextAsset('ComputerBoard',fill=black, style='bold 15pt Times')
-    blackCircleText = TextAsset('BlackCircle=PlayerShip',fill=black, style='bold 15pt Times')
-    blueCircleText = TextAsset('BlueCircle=Miss',fill=black, style='bold 15pt Times')
-    redCircleText = TextAsset('RedCircle=Hit',fill=black, style='bold 15pt Times')
+    blackCircleText = TextAsset('=PlayerShip',fill=black, style='bold 15pt Times')
+    blueCircleText = TextAsset('=Miss',fill=black, style='bold 15pt Times')
+    redCircleText = TextAsset('=Hit',fill=black, style='bold 15pt Times')
     computerWinText = TextAsset('Computer Wins!!',fill=black, style='bold 50pt Times')
     playerWinText = TextAsset('Player Wins!!',fill=black, style='bold 50pt Times')
 
     Sprite(playerBoardText,(120,320))
     Sprite(computerBoardText,(620,320))
-    Sprite(blackCircleText,(10,420))
-    Sprite(blueCircleText,(10,450))
-    Sprite(redCircleText,(10,480))
+    Sprite(blackCircleText,(70,355))
+    Sprite(shipCircle, (10,340))
+    Sprite(blueCircleText,(70,420))
+    Sprite(missCircle, (10,400))
+    Sprite(redCircleText,(70,480))
+    Sprite(hitCircle, (10,460))
     
     for r in range(0,5):
         for c in range(0,5):
@@ -106,8 +109,9 @@ def mouseClick(event):
     col = int(event.y//60)
     if data['end']==False:
         if  data['playerships']<3:
-            data['board'][row][col]='ship'
-            data['playerships']+=1
+            if data['board'][row][col]==EMPTY:
+                data['board'][row][col]='ship'
+                data['playerships']+=1
         elif data['playerships']==3:
             if data['compboard'][((event.x)-500)//60][col] == 'compship':
                 data['compboard'][((event.x)-500)//60][col] = HIT
